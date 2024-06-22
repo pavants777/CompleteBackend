@@ -1,14 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const path =  require('path')
 require('dotenv').config()
 const authRoutes = require('./Routes/auth.Routes')
-
-
 const app = express();
-const DB = process.env.DB
 
-app.use(express.json())
+
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+const DB = process.env.DB
 const Port = process.env.Port || 3000
 
 mongoose.connect(DB).then(()=>{
